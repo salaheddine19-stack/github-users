@@ -6,22 +6,38 @@ import { GithubUsersContext } from '../context/context'
 import SingleUser from '../components/SingleUser'
 
 const Home = () => {
-  const { users, loading } = useContext(GithubUsersContext)
+  const { users, loading, searchUsers } = useContext(GithubUsersContext)
+  const [username, setUsername] = useState('')
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    searchUsers(username)
+  }
+
   return (
     <>
       <div className='center'>
         <h1>Home {loading && 'Loading ..'}</h1>
       </div>
 
-      <form>
+      <form onSubmit={onSubmit}>
         <input
           type='search'
+          value={username}
+          onChange={({ target }) => setUsername(target.value)}
           className='search-input'
           placeholder='what are you looking for ?'
         />
       </form>
 
       <section className='followers'>
+        <div className='center'>
+          <h3>
+            {!loading &&
+              users.length === 0 &&
+              `No Github User Found under the name (${username})`}
+          </h3>
+        </div>
         <div className='container'>
           {!loading &&
             users.map((user) => {
