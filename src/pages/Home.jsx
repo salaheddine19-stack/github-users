@@ -9,17 +9,26 @@ const Home = () => {
   const { users, loading } = useContext(GithubUsersContext)
   return (
     <>
-      <h1>Home {loading && 'Loading ...'}</h1>
+      <div className='center'>
+        <h1>Home {loading && 'Loading ..'}</h1>
+      </div>
 
-      {!loading &&
-        users.map(({ node_id, login, avatar_url, html_url }) => {
-          return (
-            <div key={node_id}>
-              <h5>{login}</h5>
-              <img width='100' src={avatar_url} alt={login} />
-            </div>
-          )
-        })}
+      <form>
+        <input
+          type='search'
+          className='search-input'
+          placeholder='what are you looking for ?'
+        />
+      </form>
+
+      <section className='followers'>
+        <div className='container'>
+          {!loading &&
+            users.map((user) => {
+              return <SingleUser user={user} key={user.node_id} />
+            })}
+        </div>
+      </section>
     </>
   )
 }
