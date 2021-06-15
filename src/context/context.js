@@ -72,7 +72,7 @@ export const GithubUsersProvider = ({ children }) => {
     loading,
     searchUsers,
     addFavoriteUser,
-    // getFavoriteUsers,
+    getFavoriteUsers,
     favoriteUsers,
     removeFavoriteUser,
   }

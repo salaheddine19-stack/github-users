@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { GithubUsersContext } from '../context/context'
 
 // SingleUser component
 import SingleUser from '../components/SingleUser'
-import Navbar from '../components/Navbar'
+// import Navbar from '../components/Navbar'
 
 const Home = () => {
   const { users, loading, searchUsers } = useContext(GithubUsersContext)

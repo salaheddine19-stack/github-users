@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { GithubUsersProvider, GithubUsersContext } from './context/context'
+import { GithubUsersProvider } from './context/context'
 
 // pages
 import Home from './pages/Home'
