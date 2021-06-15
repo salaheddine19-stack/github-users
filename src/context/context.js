@@ -9,6 +9,27 @@ export const GithubUsersContext = createContext()
 export const GithubUsersProvider = ({ children }) => {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
+  const [favoriteUsers, setFavoriteUsers] = useState([])
+
+  const getFavoriteUsers = () => {
+    db.collection('users').onSnapshot((snapshot) => {
+      const favUsers = snapshot.docs.map((doc) => {
+        return {
+          docId: doc.id,
+          fav: true,
+          ...doc.data(),
+        }
+      })
+      setFavoriteUsers(favUsers)
+    })
+  }
+
+  const addFavoriteUser = (user) => {
+    db.collection('users').add(user)
+  }
+  const removeFavoriteUser = (docId) => {
+    db.collection('users').doc(docId).delete()
+  }
 
   const searchUsers = (query) => {
     if (query.trim() !== '') {
@@ -25,23 +46,35 @@ export const GithubUsersProvider = ({ children }) => {
   }
 
   const getUsers = () => {
-    setLoading(true)
     fetch(API_URL)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data)
-        setLoading(false)
       })
   }
-
   useEffect(() => {
-    getUsers()
+    setLoading(true)
+    db.collection('users').onSnapshot((snapshot) => {
+      const favUsers = snapshot.docs.map((doc) => {
+        return {
+          docId: doc.id,
+          ...doc.data(),
+        }
+      })
+      setFavoriteUsers(favUsers)
+      getUsers()
+      setLoading(false)
+    })
   }, [])
 
   const values = {
     users,
     loading,
     searchUsers,
+    addFavoriteUser,
+    // getFavoriteUsers,
+    favoriteUsers,
+    removeFavoriteUser,
   }
   return <GithubUsersContext.Provider value={values} children={children} />
 }

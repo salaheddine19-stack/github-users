@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-// import { GithubUsersContext } from './context/context'
-import { GithubUsersProvider } from './context/context'
+import { GithubUsersProvider, GithubUsersContext } from './context/context'
 
 // pages
 import Home from './pages/Home'
@@ -14,11 +13,21 @@ import Error from './pages/Error'
 export const App = () => {
   return (
     <main>
-      <h1>App.js</h1>
-
       <GithubUsersProvider>
-        <Home />
-        {/* <Favorite /> */}
+        <Router>
+          <Navbar />
+          <Switch>
+            <Route exact path='/'>
+              <Home />
+            </Route>
+            <Route path='/favorite'>
+              <Favorite />
+            </Route>
+            <Route path='*'>
+              <Error />
+            </Route>
+          </Switch>
+        </Router>
       </GithubUsersProvider>
     </main>
   )

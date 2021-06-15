@@ -4,6 +4,7 @@ import { GithubUsersContext } from '../context/context'
 
 // SingleUser component
 import SingleUser from '../components/SingleUser'
+import Navbar from '../components/Navbar'
 
 const Home = () => {
   const { users, loading, searchUsers } = useContext(GithubUsersContext)
@@ -26,7 +27,7 @@ const Home = () => {
           value={username}
           onChange={({ target }) => setUsername(target.value)}
           className='search-input'
-          placeholder='what are you looking for ?'
+          placeholder='What are you looking for ?'
         />
       </form>
 

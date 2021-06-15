@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import { App } from './App'
 import './index.css'
 
-// import { GithubUsersProvider } from './context/context'
+import { GithubUsersProvider } from './context/context'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const root = document.getElementById('root')
+
+ReactDOM.render(<App />, root)
